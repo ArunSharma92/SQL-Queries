@@ -1,0 +1,5 @@
+Select * from vicidial_list
+Inner Join vicidial_log_archive On vicidial_list.lead_id = vicidial_log_archive.lead_id
+WHERE vicidial_log_archive.call_date BETWEEN '2018-01-03 00:00:01' AND '2018-01-05 23:59:59' 
+and vicidial_log_archive.campaign_id = '1000'
+and vicidial_log_archive.length_in_sec BETWEEN 60 AND 120
