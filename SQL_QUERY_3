@@ -1,0 +1,9 @@
+Select * from vicidial_agent_log where event_time like '2018-03-02%' AND sub_status NOT like 'NULL'
+order by userSelect user, agent_log_id, event_time, campaign_id, pause_sec, dispo_sec, sub_status, pause_type from vicidial_agent_log 
+where event_time like '2018-03-02%'  AND user like '1001' AND sub_status NOT like 'NULL'order by user
+
+
+Select * from vicidial_list
+Inner Join vicidial_log_archive On vicidial_list.lead_id = vicidial_log_archive.lead_id
+where campaign_id In ('5000') And call_date like '2017%' order by entry_date
+
