@@ -1,0 +1,22 @@
+SELECT vicidial_log_archive.call_date as Call_Date, 'Outbound' as Inbound_or_Outbound, vicidial_log_archive.status as Call_Date_Status, 
+vicidial_users.full_name as Agent_Name, vicidial_log_archive.user as Agent_ID, vicidial_log_archive.user_group as User_Group, 
+vicidial_log_archive.lead_id as LeadID, MID(vicidial_dial_log_archive.outbound_cid, 25, 10) as DID, 
+vicidial_log_archive.phone_number as Phone_Number, vicidial_list.first_name as First_Name, 
+vicidial_list.last_name as Last_Name, vicidial_list.address1 as Address1, vicidial_list.address2 as Address2, 
+vicidial_list.address3 as Address3, vicidial_list.city as City, vicidial_list.state as State, 
+vicidial_list.postal_code as Zip_Code, vicidial_list.province as Province, vicidial_list.email as Email, 
+vicidial_log_archive.list_id as ListID, vicidial_log_archive.campaign_id as CampaignId, 
+vicidial_log_archive.length_in_sec as Length_in_Seconds, vicidial_log_archive.comments as Comments, 
+vicidial_log_archive.term_reason as Termination_Reason, vicidial_log_archive.called_count as Call_Count,
+vicidial_list.vendor_lead_code as Vendor_Lead_Code, vicidial_list.entry_list_id as Entry_List_ID
+FROM vicidial_log_archive
+LEFT JOIN vicidial_list
+ON (vicidial_log_archive.lead_id = vicidial_list.lead_id)
+LEFT JOIN vicidial_users
+ON (vicidial_log_archive.user = vicidial_users.user)
+LEFT JOIN vicidial_log_extended_archive
+ON (vicidial_log_archive.uniqueid = vicidial_log_extended_archive.uniqueid)
+LEFT JOIN vicidial_dial_log_archive
+ON (vicidial_log_extended_archive.caller_code = vicidial_dial_log_archive.caller_code)
+WHERE vicidial_log_archive.call_date BETWEEN '2018-01-22 00:00:01' AND '2018-01-25 23:59:59' 
+and vicidial_log_archive.campaign_id = '5000' and vicidial_log_archive.length_in_sec Between 60 and 120
